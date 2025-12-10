@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS content;
+DROP TABLE IF EXISTS word;
+DROP TABLE IF EXISTS tag;
+
+CREATE TABLE tag(
+tagId SERIAL PRIMARY KEY,
+tagName VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE word(
+wordId SERIAL PRIMARY KEY,
+word VARCHAR(255) NOT NULL UNIQUE,
+pronounce VARCHAR(255) NOT NULL,
+haveTag TEXT
+--FOREIGN KEY(haveTagId) REFERENCES haveTag(id)
+);
+
+create table content(
+contentId SERIAL PRIMARY KEY,
+wordId INTEGER,
+haveTag TEXT,
+content TEXT,
+FOREIGN KEY(wordId) REFERENCES word(wordId)
+--FOREIGN KEY(haveTagId) REFERENCES haveTag(id)
+);

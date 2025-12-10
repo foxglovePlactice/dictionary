@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${word.word}"></title>
+</head>
+<body>
+	<h1 th:text="${word.word}">見出し語</h1>
+	<ul>
+		<li th:each="tag : ${tags}">
+			<div th:each="allTag : ${allTags}" th:if="${allTag.tagId == tag}" th:text="${allTag.tagName}">詳細</div>
+		</li>
+	</ul>
+	
+	<ul>
+		<li th:each="content : ${contents}" th:if="${content.wordId == word.wordId}" th:utext="${content.content}"></li>
+	</ul>
+	<p th:text="${tags}"></p>
+
+</body>
+</html>

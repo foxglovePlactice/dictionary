@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dictionary.repository.TagMapper">
+	<!-- 全件検索 -->
+	<select id="selectAll" resultType="com.example.dictionary.entity.Tag">
+		SELECT tagId, tagName FROM tag
+	</select>
+	<!-- 1件検索 -->
+	<select id="selectById" resultType="com.example.dictionary.entity.Tag">
+		SELECT tagId, tagName FROM tag WHERE tagId = #{tagId}
+	</select>
+	<!-- 登録 -->
+	<insert id="insert">
+		INSERT INTO tag (tagName)
+		VALUES (#{tagName})
+	</insert>
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE tag SET tagName = #{tagName} WHERE tagId = #{tagId}
+	</update>
+	<!-- 削除 -->
+	<delete id="delete">
+		DELETE FROM tag WHERE tagId = #{tagId}
+	</delete>
+</mapper>

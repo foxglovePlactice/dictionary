@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<!--タイトル : 登録 or 編集-->
+	<h2 th:if="${wordForm.isNew}">新規登録</h2>
+	<h2 th:unless="${wordForm.isNew}">編集</h2>
+	<!--アクション : 登録 or 編集-->
+	<form th:action="${wordForm.isNew} ? @{/words/save} : @{/words/update}" method="post">
+		<!--idは更新時に必要だからhiddenで持つ-->
+		<input type="hidden" th:field="${wordForm.id}">
+		<input type="hidden" th:field="${contentForm.id}">
+		<h5>タグ</h5>
+		<label th:each="tag : ${allTags}">
+			<input type="checkbox" name="tag" th:checked="${#lists.contains(haveList, tag.id)}" th:value="${tag.id}" th:text="${tag.tagName}" th:field="${wordForm.haveTag}">
+		</label>
+		<table>
+			<tr>
+				<th>見出し語</th>
+				<td>
+					<input type="text" th:field="${wordForm.word}">
+				</td>
+			</tr>
+			<tr>
+				<th>読み</th>
+				<td>
+					<input type="text" th:field="${wordForm.pronounce}">
+				</td>
+			</tr>
+			<tr>
+				<th>詳細</th>
+				<td>
+					<textarea row="5" cols="30" th:field="${contentForm.content}"></textarea>
+				</td>
+			</tr>
+		</table>
+		<!--ボタン : 登録 or 編集-->
+		<input th:if="${wordForm.isNew}" type="submit" value="登録">
+		<input th:unless="${wordForm.isNew}" type="submit" value="更新">
+	</form>
+	<a th:href="@{/words}">戻る</a>
+
+</body>
+</html>

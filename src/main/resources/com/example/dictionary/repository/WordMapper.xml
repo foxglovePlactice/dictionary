@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dictionary.repository.WordMapper">
+	<!-- 全件検索 -->
+	<select id="selectAll" resultType="com.example.dictionary.entity.Word">
+		SELECT wordId, word, pronounce, haveTag FROM word
+	</select>
+	<!-- 1件検索 -->
+	<select id="selectById" resultType="com.example.dictionary.entity.Word">
+		SELECT wordId, word, pronounce, haveTag FROM word WHERE wordId = #{wordId}
+	</select>
+	<!-- 登録 -->
+	<insert id="insert">
+		INSERT INTO word (word, pronounce, haveTag)
+		VALUES (#{word}, #{pronounce}, #{haveTag})
+	</insert>
+	<!-- 更新 -->
+	<update id="update">
+		UPDATE word SET word = #{word}, pronounce = #{pronounce}, haveTag = #{haveTag} WHERE wordId = #{wordId}
+	</update>
+	<!-- 削除 -->
+	<delete id="delete">
+		DELETE FROM word WHERE wordId = #{wordId}
+	</delete>
+	<!-- 指定されたIDの見出し語のタグだけ検索 -->
+	<select id="selectByIdTag" resultType="String">
+		SELECT haveTag FROM word WHERE wordId = #{wordId}
+	</select>
+	
+</mapper>

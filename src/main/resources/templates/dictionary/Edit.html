@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${wordForm.word} + '_更新'">Insert title here</title>
+</head>
+<body>
+	<!--タイトル : 編集-->
+	<form method="post" th:action="@{/words/update}">
+		<input type="hidden" th:field="${wordForm.wordId}">
+		<h5>タグ</h5>
+		<label th:each="tag : ${allTags}">
+			<input type="checkbox" name="tag" th:value="${tag.tagId}" th:text="${tag.tagName}" th:field="${wordForm.haveTag}">
+		</label>
+		<p>元のタグ</p>
+		<ul>
+			<li th:each="tag : ${haveList}">
+				<div th:each="allTag : ${allTags}"  th:if="${allTag.tagId == tag}" th:text="${allTag.tagName}"></div>
+			</li>
+		</ul>
+		<table>
+			<tr>
+				<th>見出し語</th>
+				<td>
+					<input type="text" th:field="${wordForm.word}">
+				</td>
+			</tr>
+			<tr>
+				<th>読み</th>
+				<td>
+					<input type="text" th:field="${wordForm.pronounce}">
+				</td>
+			</tr>
+			
+<!--			<tr>-->
+<!--				<th>詳細</th>-->
+<!--				<td>-->
+<!--					<textarea rows="5" cols="30" th:field="${contentForm.content}"></textarea>-->
+<!--				</td>-->
+<!--			</tr>-->
+			
+			<tr th:each="content, contentList : ${cLForm.cLForm}">
+				<th>詳細</th>
+				<td>
+					<textarea rows="5" cols="30" th:text="${content.content}" id="content" name="content"></textarea>
+				</td>
+			</tr>
+
+		</table>
+		<!--ボタン : Content入力領域追加-->
+<!--		<input type="submit" name="add" value="追加" th:formaction="@{'/words/add' + wordForm.wordId}">-->
+		<!--ボタン : 編集-->
+		<input type="submit" value="更新">
+	</form>
+	<a th:href="@{words}">戻る</a>
+
+</body>
+</html>
