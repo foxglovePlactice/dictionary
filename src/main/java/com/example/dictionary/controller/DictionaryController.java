@@ -65,7 +65,7 @@ public class DictionaryController {
 			for (Content content : contents) {
 				content.setContent(content.getContent().replaceAll("\n", "<br>"));
 			}
-			System.out.println(contents);
+//			System.out.println(contents);
 			model.addAttribute("word", wService.findByIdWord(id));
 //			model.addAttribute("contents", cService.findAllContennt());
 			model.addAttribute("contents", contents);
@@ -86,7 +86,6 @@ public class DictionaryController {
 	@GetMapping("/form")
 	public String newWord(@ModelAttribute WordForm wForm, @ModelAttribute ContentForm cForm, Model model) {
 		//新規登録画面の設定
-		wForm.setIsNew(true);
 		model.addAttribute("allTags", tService.findAllTag());
 		return "dictionary/New";
 	}
@@ -126,13 +125,24 @@ public class DictionaryController {
 					cForm.add(ContentHelper.convertContentForm(content));
 				}
 			}
-			CLForm cLForm = new CLForm(cForm);
-//			ContentForm contentForm = cForm.getFirst();
+			List<Content> cList = new ArrayList<>();
+			for (Content content : cTarget) {
+				if (content.getWordId() == wForm.getWordId()) {
+					cList.add(content);
+				}
+			}
+			CLForm cLForm = new CLForm(wForm.getWordId(), cList);
+			ContentForm contentForm = cForm.getFirst();
+			ContentForm lastContentForm = cForm.getLast();
+			wForm.setContents(cList);
+			System.out.println(wForm.getContents().getClass());
 			//モデルに格納
 			model.addAttribute("wordForm", wForm);
 //			model.addAttribute("contentTarget", cForm);
 			model.addAttribute("cLForm", cLForm);
-//			model.addAttribute("contentForm", contentForm);
+			model.addAttribute("contentForm", contentForm);
+//			System.out.println(lastContentForm);
+			model.addAttribute("lastContentForm", lastContentForm);
 			model.addAttribute("allTags", tService.findAllTag());
 			model.addAttribute("haveList", wService.findByIdTag(id));
 			return "dictionary/Edit";
@@ -147,30 +157,91 @@ public class DictionaryController {
 	/**
 	 * Contentの入力領域を増やす
 	 */
-	@GetMapping(value = "/add/{id}", params = "add")
-	public String addList(@ModelAttribute List<ContentForm> cForm, Model model) {
-		
-		// リスト最後尾に空の項目追加
-		cForm.add(new ContentForm());
-		
-		return "dictionary/Edit";
-	}
+//	@GetMapping(value = "/add/{id}", params = "add")
+//	public String addList(@ModelAttribute List<ContentForm> cForm, Model model) {
+//		
+//		// リスト最後尾に空の項目追加
+//		cForm.add(new ContentForm());
+//		
+//		return "dictionary/Edit";
+//	}
 	
 	/**
 	 * 見出し語の情報を更新する
 	 */
 	@PostMapping("/update")
-	public String update(WordForm wForm, CLForm cLForm, RedirectAttributes attributes) {
+	public String update(WordForm wForm, RedirectAttributes attributes) {
 		//見出し語の更新
 		Word word = WordHelper.convertWord(wForm);
 		wService.updateWord(word);
 		//詳細の更新
-		for (ContentForm contents : cLForm.getCLForm()) {
-			Content content = ContentHelper.convertContent(contents, wForm);
-			cService.updateContent(content);
-		}
+		System.out.println(wForm.getContents());
+		cService.updateContent(word.getContents().getFirst());
+//		System.out.println(cLForm);
+//		for (Content contents : CLHelper.convertCL(cLForm).getContentList()) {
+////			Content content = ContentHelper.convertContent(contents, wForm);
+//			cService.updateContent(contents);
+//		}
+//		System.out.println(ContentHelper.convertContent(contentForm, wForm).getContent());
+/*Content content1 = ContentHelper.convertContent(contentForm, wForm);
+Content content2 = ContentHelper.convertContent(lastContentForm, wForm);
+System.out.println(content1);
+System.out.println(content2);
+System.out.println();
+//		content1.setContentId(3);
+//		content2.setContentId(4);
+System.out.println(content1);
+System.out.println(content2);
+cService.updateContent(content1);
+cService.updateContent(content2);*/
+//		cService.updateContent(ContentHelper.convertContent(lastContentForm, wForm));
+		
+//		ここまでのコメント行を全部消していいかもしれない
+		
 		//フラッシュメッセージ
 		attributes.addFlashAttribute("message", "見出し語が更新されました");
+		//PRGパターン
+		return "redirect:/words";
+	}
+	
+	/**
+	 * 詳細追加画面を表示する
+	 */
+	@GetMapping("/add/{id}")
+	public String addContent(@PathVariable Integer id, Model model, RedirectAttributes attributes) {
+		if (wService.findByIdWord(id) != null) {
+			WordForm wForm = WordHelper.convertWordForm(wService.findByIdWord(id));
+			List<Content> contents = new ArrayList<>();
+			for (Content addContent : cService.findAllContennt()) {
+				if (addContent.getWordId() == id) {
+					addContent.setContent(addContent.getContent().replaceAll("\n", "<br>"));
+					contents.add(addContent);
+				}
+			}
+			ContentForm cForm = new ContentForm();
+			cForm.setWordId(id);
+			model.addAttribute("wordForm", wForm);
+			model.addAttribute("newContent", cForm);
+			model.addAttribute("cLForm", contents);
+			return "dictionary/InsertContent";
+		} else {
+			//対象データがないならフラッシュメッセージを設定
+			attributes.addFlashAttribute("errorMessage", "対象データがありません");
+			//一覧画面にリダイレクト
+			return "redirect:/words";
+		}
+	}
+	
+	/**
+	 * 詳細追加を実行する
+	 */
+	@PostMapping("/insertContent")
+	public String insertContent(ContentForm cForm, RedirectAttributes attributes) {
+		//詳細を持ってきて、エンティティに戻す
+		Content content = ContentHelper.convertContent(cForm, WordHelper.convertWordForm(wService.findByIdWord(cForm.getWordId())));
+		cService.insertContent(content);
+		//追加後のフラッシュメッセージ
+		attributes.addFlashAttribute("message", "詳細が追加されました");
 		//PRGパターン
 		return "redirect:/words";
 	}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${wordForm.word} + _詳細追加">Insert title here</title>
+</head>
+<body>
+	<h3 th:text="${wordForm.word}"></h3>
+	<h4 th:text="${wordForm.pronounce}"></h4>
+	<form method="post" th:action="@{/words/insertContent}" th:object="${newContent}">
+		<input type="hidden" th:field="${wordForm.wordId}">
+		<table>
+			<tr th:each="content, stat : ${cLForm}">
+				<th th:text="contentId： + ${content.contentId}"></th>
+				<td th:utext="${content.content}"></td>
+			</tr>
+			<tr>
+				<th th:text="追加する詳細"></th>
+				<td>
+					<textarea rows="5" cols="30" th:field="*{content}"></textarea>
+				</td>
+		</table>
+		<input type="submit" value="追加">
+	</form>
+
+</body>
+</html>

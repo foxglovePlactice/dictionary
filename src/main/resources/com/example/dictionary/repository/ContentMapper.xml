@@ -16,7 +16,7 @@
 	</insert>
 	<!-- 更新 -->
 	<update id="update">
-		UPDATE content SET wordId = #{wordId}, haveTag = #{haveTag}, content = #{content} WHERE contentId = #{contentId}
+		UPDATE content SET contentId = #{contentId}, wordId = #{wordId}, haveTag = #{haveTag}, content = #{content} WHERE contentId = #{contentId}
 	</update>
 	<!-- 削除 -->
 	<delete id="delete">

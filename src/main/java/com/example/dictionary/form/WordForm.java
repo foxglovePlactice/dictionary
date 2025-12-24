@@ -1,5 +1,9 @@
 package com.example.dictionary.form;
 
+import java.util.List;
+
+import com.example.dictionary.entity.Content;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +23,7 @@ public class WordForm {
 	private String pronounce;
 	/** タグ所持状況 */
 	private String haveTag;
-	/** 新規判定 */
-	private Boolean isNew;
+	/** 詳細 */
+	private List<Content> contents;
 
 }

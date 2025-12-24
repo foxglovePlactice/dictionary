@@ -16,6 +16,7 @@ public class WordHelper {
 		word.setWord(wForm.getWord());
 		word.setPronounce(wForm.getPronounce());
 		word.setHaveTag(wForm.getHaveTag());
+		word.setContents(wForm.getContents());
 		
 		return word;
 	}
@@ -29,8 +30,7 @@ public class WordHelper {
 		wForm.setWord(word.getWord());
 		wForm.setPronounce(word.getPronounce());
 		wForm.setHaveTag(word.getHaveTag());
-		
-		wForm.setIsNew(false);
+		wForm.setContents(word.getContents());
 		
 		return wForm;
 	}

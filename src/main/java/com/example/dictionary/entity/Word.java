@@ -1,5 +1,7 @@
 package com.example.dictionary.entity;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,7 @@ public class Word {
 	private String pronounce;
 	/** 所持タグ */
 	private String haveTag;
+	/** 詳細 */
+	private List<Content> contents;
 
 }

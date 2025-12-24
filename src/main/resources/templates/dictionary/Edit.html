@@ -36,14 +36,25 @@
 <!--				<th>詳細</th>-->
 <!--				<td>-->
 <!--					<textarea rows="5" cols="30" th:field="${contentForm.content}"></textarea>-->
+<!--					<input type="hidden" th:field="${contentForm.contentId}"></input>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<th>詳細</th>-->
+<!--				<td>-->
+<!--					<textarea rows="5" cols="30" id="content" name="content" th:text="${lastContentForm.content}"></textarea>-->
+<!--					<input type="hidden" id="contentId" name="contentId" th:value="${lastContentForm.contentId}">-->
 <!--				</td>-->
 <!--			</tr>-->
 			
-			<tr th:each="content, contentList : ${cLForm.cLForm}">
+			<tr th:each="content : ${wordForm.contents}"><!--この行の${}の中身はList<Content>クラスにする-->
 				<th>詳細</th>
 				<td>
 					<textarea rows="5" cols="30" th:text="${content.content}" id="content" name="content"></textarea>
+					<input type="hidden" id="contentId" name="contentId" th:value="${content.contentId}">
+<!--					<textarea rows="5" cols="30" th:field="${content.content}"></textarea>-->
 				</td>
+				<td th:text="${content.contentId}"></td>
 			</tr>
 
 		</table>

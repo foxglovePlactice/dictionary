@@ -2,6 +2,8 @@ package com.example.dictionary.form;
 
 import java.util.List;
 
+import com.example.dictionary.entity.Content;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CLForm {
-	/** ContentFormのList */
-	private List<ContentForm> cLForm;
+	/** wordId　*/
+	private Integer wordId;
+	/** ContentのList */
+	private List<Content> cLForm;
 
 }
