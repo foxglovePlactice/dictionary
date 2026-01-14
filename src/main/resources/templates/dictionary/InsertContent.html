@@ -7,7 +7,7 @@
 <body>
 	<h3 th:text="${wordForm.word}"></h3>
 	<h4 th:text="${wordForm.pronounce}"></h4>
-	<form method="post" th:action="@{/words/insertContent}" th:object="${newContent}">
+	<form method="post" th:action="@{/wordsAdmin/insertContent}" th:object="${newContent}">
 		<input type="hidden" th:field="${wordForm.wordId}">
 		<table>
 			<tr th:each="content, stat : ${cLForm}">

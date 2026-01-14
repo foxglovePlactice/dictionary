@@ -35,7 +35,7 @@ public interface WordMapper {
 	/**
 	 * 指定されたIDの見出し語を削除
 	 */
-	void delete(@Param("id") Integer id);
+	void delete(@Param("wordId") Integer id);
 	
 	/**
 	 * 指定されたIDの見出し語のタグを取得

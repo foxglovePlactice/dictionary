@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<h3>今のタグ</h3>
+	<table>
+		<tr th:each="tag : ${tags}">
+			<th>
+				<a th:href="@{/wordsAdmin/editTag/{id}(id=${tag.tagId})}" th:text="${tag.tagName}"></a>
+			</th>
+			<td th:text="${tag.tagId}"></td>
+		</tr>
+	</table>
+	
+	<a th:href="@{/wordsAdmin/addTag}">タグ追加</a>
+	<br><br>
+	<a th:href="@{/wordsAdmin/list}">管理者用リストに戻る</a>
+
+</body>
+</html>

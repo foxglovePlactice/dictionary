@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${word.word} + _管理者画面">Insert title here</title>
+</head>
+<body>
+	<h1 th:text="${word.word}">見出し語</h1>
+	<ul>
+		<li th:each="tag : ${tags}">
+			<div th:each="allTag : ${allTags}" th:if="${allTag.tagId == tag}" th:text="${allTag.tagName}">タグ</div>
+		</li>
+	</ul>
+	
+	<a th:href="@{/wordsAdmin/editWord/{id}(id=${word.wordId})}">見出し語の編集</a>
+	
+	<ul>
+		<li th:each="content : ${contents}" th:if="${content.wordId == word.wordId}" th:utext="${content.content}">
+			<a th:href="@{/updateContent/{id}(id=${content.contentId})}">この詳細の編集</a>
+		</li>
+	</ul>
+	
+	<table>
+		<tr th:each="content : ${contents}" th:if="${content.wordId == word.wordId}">
+			<th>詳細</th>
+			<td th:utext="${content.content}"></td>
+			<td>
+				<a th:href="@{/wordsAdmin/editContent/{id}(id=${content.contentId})}">この詳細の編集</a>
+			</td>
+		</tr>
+	</table>
+	
+	<a th:href="@{/wordsAdmin/addContent/{id}(id=${word.wordId})}">詳細の追加</a>
+
+</body>
+</html>

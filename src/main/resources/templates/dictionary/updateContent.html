@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<form method="post" th:action="@{/wordsAdmin/updateContent}">
+		<input type="hidden" th:field="${contentForm.contentId}">
+		<input type="hidden" th:field="${wordForm.wordId}">
+		<h4 th:text="${wordForm.word}"></h4>
+		<h4 th:text="${wordForm.pronounce}"></h4>
+		<h5>他の詳細</h5>
+		<ul>
+			<li th:each="content : ${wordForm.contents}" th:unless="${content.contentId == contentForm.contentId}" th:text="${content.content}"></li>
+		</ul>
+		<h5>更新する詳細</h5>
+		<textarea rows="5" cols="30" th:field="${contentForm.content}"></textarea>
+		<input type="submit" value="更新">
+	</form>
+
+</body>
+</html>

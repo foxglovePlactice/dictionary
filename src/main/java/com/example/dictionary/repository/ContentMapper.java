@@ -20,7 +20,7 @@ public interface ContentMapper {
 	/**
 	 * 指定されたIDの詳細を取得
 	 */
-	Content selectById(@Param("id") Integer id);
+	Content selectById(@Param("contentId") Integer id);
 	
 	/**
 	 * 詳細を登録
@@ -35,7 +35,7 @@ public interface ContentMapper {
 	/**
 	 * 指定されたIDの詳細を削除
 	 */
-	void delete(@Param("id") Integer id);
+	void delete(@Param("contentId") Integer id);
 	
 	/**
 	 * 複数の詳細を更新

@@ -20,7 +20,7 @@ public interface TagMapper {
 	/**
 	 * 指定されたIDのタグを取得
 	 */
-	Tag selectById(@Param("id") Integer id);
+	Tag selectById(@Param("tagId") Integer id);
 	
 	/**
 	 * タグを登録
@@ -35,6 +35,6 @@ public interface TagMapper {
 	/**
 	 * 指定されたIDのタグを削除
 	 */
-	void delete(@Param("id") Integer id);
+	void delete(@Param("tagId") Integer id);
 
 }

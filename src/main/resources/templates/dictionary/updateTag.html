@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<form method="post" th:action="@{/wordsAdmin/updateTag}">
+		<input type="hidden" th:field="${tagForm.tagId}">
+		<h3>現在のタグ</h3>
+		<ol>
+			<li th:each="tag :${allTags}" th:text="${tag.tagName}"></li>
+		</ol>
+		<input type="text" th:field="${tagForm.tagName}">
+		<input type="submit" value="更新">
+	</form>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	<h3>現在のタグ</h3>
+	<ol>
+		<li th:each="tag : ${allTags}" th:text="${tag.tagName}"></li>
+	</ol>
+	<form method="post" th:action="@{/wordsAdmin/insertTag}" th:object="${newTag}">
+		<table>
+			<tr>
+				<th th:text="追加するタグ"></th>
+				<td>
+					<input type="text" th:field="*{tagName}">
+				</td>
+			</tr>
+		</table>
+		<input type="submit" value="追加">
+	</form>
+
+</body>
+</html>
