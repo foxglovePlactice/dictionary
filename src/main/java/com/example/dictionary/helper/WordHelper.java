@@ -6,7 +6,7 @@ import com.example.dictionary.form.WordForm;
 /**
  * 見出し語 : Helper
  */
-public class WordHelper {
+public class WordHelper {  //エンティティとフォームの相互変換 正直なんであるのかよくわかってない そのままでよくない？
 	/**
 	 * Wordへの変換
 	 */

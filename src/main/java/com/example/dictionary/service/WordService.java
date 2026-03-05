@@ -7,11 +7,16 @@ import com.example.dictionary.entity.Word;
 /**
  * Word : サービス
  */
-public interface WordService {
+public interface WordService {  //コントローラで使うメソッドのインタフェース
 	/**
 	 * 全見出し語を検索
 	 */
 	List<Word> findAllWord();
+	
+//	/**
+//	 * pageable用
+//	 */
+//	List<Word> findAllWord(Pageable pageable);
 	
 	/**
 	 * 指定されたIDの見出し語を検索

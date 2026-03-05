@@ -3,7 +3,7 @@
 <mapper namespace="com.example.dictionary.repository.ContentMapper">
 	<!-- 全件検索 -->
 	<select id="selectAll" resultType="com.example.dictionary.entity.Content">
-		SELECT contentId, wordId, haveTag, content FROM content
+		SELECT contentId, wordId, haveTag, content FROM content ORDER BY contentId
 	</select>
 	<!-- 1件検索 -->
 	<select id="selectById" resultType="com.example.dictionary.entity.Content">
@@ -16,7 +16,7 @@
 	</insert>
 	<!-- 更新 -->
 	<update id="update">
-		UPDATE content SET contentId = #{contentId}, wordId = #{wordId}, haveTag = #{haveTag}, content = #{content} WHERE contentId = #{contentId}
+		UPDATE content SET contentId = #{contentId}, wordId = #{wordId}, haveTag = #{haveTag}, content = #{content}, updated_at = CURRENT_TIMESTAMP WHERE contentId = #{contentId}
 	</update>
 	<!-- 削除 -->
 	<delete id="delete">

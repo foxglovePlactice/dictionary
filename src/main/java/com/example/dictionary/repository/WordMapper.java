@@ -11,7 +11,7 @@ import com.example.dictionary.entity.Word;
  * Word : リポジトリ
  */
 @Mapper
-public interface WordMapper {
+public interface WordMapper {  //直接SQL文を呼び出すやつ Mapper.xmlのidとメソッド名を一致させる 戻り値の型も
 	/**
 	 * 全ての見出し語を取得
 	 */

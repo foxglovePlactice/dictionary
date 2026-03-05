@@ -100,25 +100,25 @@ public class AdminController {
 	/**
 	 * 新規登録を実行する
 	 */
-	@PostMapping("/save")
+	@PostMapping("/save")  //入力した内容に従って処理をする部分
 	public String create(WordForm wForm, ContentForm cForm, RedirectAttributes attributes) {
 		//エンティティへの変換
 		Word word = WordHelper.convertWord(wForm);
 		Content content = ContentHelper.convertContent(cForm, wForm);
 		//登録実行
 		wService.insertWord(word);
-		content.setWordId(wService.findAllWord().getLast().getWordId());
+		content.setWordId(wService.findAllWord().getLast().getWordId());  //contentにwordIdを入れないとうまく動かない
 		cService.insertContent(content);
 		//フラッシュメッセージ
 		attributes.addFlashAttribute("message", "新しい見出し語が作成されました");
 		//PRGパターン
-		return "redirect:/words";
+		return "redirect:/wordsAdmin/list";
 	}
 	
 	/**
 	 * 指定された見出し語IDの編集画面を表示
 	 */
-	@GetMapping("/editWord/{id}")
+	@GetMapping("/editWord/{id}")  //説明文の更新はしない タグと見出し語、読みだけ
 	public String editWord(@PathVariable Integer id, Model model, RedirectAttributes attributes) {
 		//IDに対応する見出し語を取得
 		Word target = wService.findByIdWord(id);
@@ -148,7 +148,7 @@ public class AdminController {
 			//対象データがないならフラッシュメッセージを設定
 			attributes.addFlashAttribute("errorMessage", "対象データがありません");
 			//一覧画面にリダイレクト
-			return "redirect:/wordsAdmin/list";
+			return "redirect:/wordsAdmin/list";  //ミスったときの遷移先
 		}
 	}
 	
@@ -239,7 +239,7 @@ public class AdminController {
 		//追加後のフラッシュメッセージ
 		attributes.addFlashAttribute("message", "詳細が追加されました");
 		//PRGパターン
-		return "redirect:/words";
+		return "redirect:/wordsAdmin/list";
 	}
 	
 	/**

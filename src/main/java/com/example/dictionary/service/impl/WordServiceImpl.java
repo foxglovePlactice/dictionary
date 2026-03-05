@@ -3,11 +3,13 @@ package com.example.dictionary.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dictionary.entity.Word;
 import com.example.dictionary.repository.WordMapper;
+import com.example.dictionary.repository.WordRepository;
 import com.example.dictionary.service.WordService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,17 +19,31 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @Transactional
+//@NoArgsConstructor
 @RequiredArgsConstructor
-public class WordServiceImpl implements WordService {
+public class WordServiceImpl implements WordService {  //コントローラで使うメソッドのクラス 多少複雑な処理も書いていい
 	
 	/** DI */
+	@Autowired
 	private final WordMapper wMapper;
-
+//	private final WordRepository wordRepo;
+//	
+	public WordServiceImpl() {
+		this.wMapper = null;
+//		this.wordRepo = null;
+		
+	}
+	
 	@Override
 	public List<Word> findAllWord() {
 		// TODO 自動生成されたメソッド・スタブ
 		return wMapper.selectAll();
 	}
+	
+//	@Override
+//	public List<Word> findAllWord(Pageable pageable){
+//		return wMapper.selectAll();
+//	}
 
 	@Override
 	public Word findByIdWord(Integer id) {
@@ -69,6 +85,12 @@ public class WordServiceImpl implements WordService {
 			list.add(Integer.parseInt(str.substring(str.indexOf(",") + 1)));
 		}
 		return list;
+	}
+
+	public WordServiceImpl(WordRepository wordRepository) {
+		this.wMapper = null;
+//		this.wordRepo = wordRepository;
+		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 }
